@@ -1,0 +1,30 @@
+version: "3.7"
+
+services:
+  rails_dev:
+    build: .
+    container_name: rails_dev
+    stdin_open: true
+    tty: true
+    ports:
+      - 3000:3000
+    volumes:
+      - ./:/home/app
+
+  mysql:
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_DATABASE: 'petbook'
+      MYSQL_USER: 'admin'
+      MYSQL_PASSWORD: 'mysqlpw'
+      MYSQL_ROOT_PASSWORD: 'mysqlpw'
+    ports:
+      - '3306:3306'
+    expose:
+      - '3306'
+    volumes:
+      - ruby-mysql-data:/var/lib/mysql
+
+volumes:
+  ruby-mysql-data:
